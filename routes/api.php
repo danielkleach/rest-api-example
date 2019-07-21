@@ -13,6 +13,13 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('/auth/token', 'Auth\AuthController@store');
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::resource('products', 'ProductController', ['except' => 'create', 'edit']);
+    Route::resource('user-products', 'UserProductController', [
+        'except' => 'show', 'create', 'edit', 'update'
+    ]);
+
+    Route::post('products/{id}/image', 'ProductImageController@store');
 });
