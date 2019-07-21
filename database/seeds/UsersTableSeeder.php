@@ -13,7 +13,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         factory(User::class, 5)->create([
-            'password' => Hash::make('Test123'),
+            'password' => Hash::make('password'),
         ]);
     }
 }
